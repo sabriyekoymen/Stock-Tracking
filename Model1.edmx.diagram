@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="f1f2d57b64304301b9012d2e1c344d01" Name="Diagram1">
+        <EntityTypeShape EntityType="stokModel.depo" Width="1.5" PointX="3.75" PointY="0.75" />
+        <EntityTypeShape EntityType="stokModel.product" Width="1.5" PointX="0.75" PointY="4.375" />
+        <EntityTypeShape EntityType="stokModel.StkDurum" Width="1.5" PointX="6" PointY="4.5" />
+        <EntityTypeShape EntityType="stokModel.users" Width="1.5" PointX="1.5" PointY="0.75" />
+        <AssociationConnector Association="stokModel.FK__StkDurum__depo_i__503BEA1C" />
+        <AssociationConnector Association="stokModel.FK__StkDurum__produc__4F47C5E3" />
+        <EntityTypeShape EntityType="stokModel.StkHareket" Width="1.5" PointX="6" PointY="0.75" />
+        <AssociationConnector Association="stokModel.FK__StkHareke__depo___0A688BB1" />
+        <AssociationConnector Association="stokModel.FK__StkHareke__produ__0880433F" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

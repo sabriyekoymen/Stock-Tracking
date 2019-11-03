@@ -1,0 +1,355 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="stokModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="depo">
+          <Key>
+            <PropertyRef Name="depo_id" />
+          </Key>
+          <Property Name="depo_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="depo_name" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="product">
+          <Key>
+            <PropertyRef Name="product_id" />
+          </Key>
+          <Property Name="product_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="product_name" Type="varchar" MaxLength="50" />
+          <Property Name="product_date" Type="date" />
+          <Property Name="product_detail" Type="varchar" MaxLength="50" />
+          <Property Name="degistirme_tarihi" Type="datetime" />
+          <Property Name="olcu_birimi" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="StkDurum">
+          <Key>
+            <PropertyRef Name="durum_id" />
+          </Key>
+          <Property Name="durum_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="product_id" Type="int" />
+          <Property Name="depo_id" Type="int" />
+          <Property Name="stk_miktar" Type="int" />
+        </EntityType>
+        <EntityType Name="StkHareket">
+          <Key>
+            <PropertyRef Name="hareket_id" />
+          </Key>
+          <Property Name="hareket_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="product_id" Type="int" />
+          <Property Name="depo_id" Type="int" />
+          <Property Name="stk_miktar" Type="int" />
+          <Property Name="stk_olcu" Type="varchar" MaxLength="50" />
+          <Property Name="hareket_turu" Type="varchar" MaxLength="50" />
+          <Property Name="hareket_tarih" Type="datetime" />
+          <Property Name="user_name" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="users">
+          <Key>
+            <PropertyRef Name="users_id" />
+          </Key>
+          <Property Name="users_id" Type="int" Nullable="false" />
+          <Property Name="users_fname" Type="varchar" MaxLength="50" />
+          <Property Name="users_lname" Type="varchar" MaxLength="50" />
+          <Property Name="users_mail" Type="varchar" MaxLength="50" />
+          <Property Name="users_type" Type="varchar" MaxLength="50" />
+          <Property Name="u_tarih" Type="datetime" />
+          <Property Name="password" Type="varchar" MaxLength="50" />
+          <Property Name="degistirme_tarihi" Type="datetime" />
+        </EntityType>
+        <Association Name="FK__StkDurum__depo_i__503BEA1C">
+          <End Role="depo" Type="Self.depo" Multiplicity="0..1" />
+          <End Role="StkDurum" Type="Self.StkDurum" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="depo">
+              <PropertyRef Name="depo_id" />
+            </Principal>
+            <Dependent Role="StkDurum">
+              <PropertyRef Name="depo_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__StkDurum__produc__4F47C5E3">
+          <End Role="product" Type="Self.product" Multiplicity="0..1" />
+          <End Role="StkDurum" Type="Self.StkDurum" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="product">
+              <PropertyRef Name="product_id" />
+            </Principal>
+            <Dependent Role="StkDurum">
+              <PropertyRef Name="product_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__StkHareke__depo___0A688BB1">
+          <End Role="depo" Type="Self.depo" Multiplicity="0..1" />
+          <End Role="StkHareket" Type="Self.StkHareket" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="depo">
+              <PropertyRef Name="depo_id" />
+            </Principal>
+            <Dependent Role="StkHareket">
+              <PropertyRef Name="depo_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__StkHareke__produ__0880433F">
+          <End Role="product" Type="Self.product" Multiplicity="0..1" />
+          <End Role="StkHareket" Type="Self.StkHareket" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="product">
+              <PropertyRef Name="product_id" />
+            </Principal>
+            <Dependent Role="StkHareket">
+              <PropertyRef Name="product_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="stokModelStoreContainer">
+          <EntitySet Name="depo" EntityType="Self.depo" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="product" EntityType="Self.product" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="StkDurum" EntityType="Self.StkDurum" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="StkHareket" EntityType="Self.StkHareket" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="users" EntityType="Self.users" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__StkDurum__depo_i__503BEA1C" Association="Self.FK__StkDurum__depo_i__503BEA1C">
+            <End Role="depo" EntitySet="depo" />
+            <End Role="StkDurum" EntitySet="StkDurum" />
+          </AssociationSet>
+          <AssociationSet Name="FK__StkDurum__produc__4F47C5E3" Association="Self.FK__StkDurum__produc__4F47C5E3">
+            <End Role="product" EntitySet="product" />
+            <End Role="StkDurum" EntitySet="StkDurum" />
+          </AssociationSet>
+          <AssociationSet Name="FK__StkHareke__depo___0A688BB1" Association="Self.FK__StkHareke__depo___0A688BB1">
+            <End Role="depo" EntitySet="depo" />
+            <End Role="StkHareket" EntitySet="StkHareket" />
+          </AssociationSet>
+          <AssociationSet Name="FK__StkHareke__produ__0880433F" Association="Self.FK__StkHareke__produ__0880433F">
+            <End Role="product" EntitySet="product" />
+            <End Role="StkHareket" EntitySet="StkHareket" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="stokModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="stokEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="depo" EntityType="stokModel.depo" />
+          <EntitySet Name="product" EntityType="stokModel.product" />
+          <EntitySet Name="StkDurum" EntityType="stokModel.StkDurum" />
+          <EntitySet Name="users" EntityType="stokModel.users" />
+          <AssociationSet Name="FK__StkDurum__depo_i__503BEA1C" Association="stokModel.FK__StkDurum__depo_i__503BEA1C">
+            <End Role="depo" EntitySet="depo" />
+            <End Role="StkDurum" EntitySet="StkDurum" />
+          </AssociationSet>
+          <AssociationSet Name="FK__StkDurum__produc__4F47C5E3" Association="stokModel.FK__StkDurum__produc__4F47C5E3">
+            <End Role="product" EntitySet="product" />
+            <End Role="StkDurum" EntitySet="StkDurum" />
+          </AssociationSet>
+          <EntitySet Name="StkHareket" EntityType="stokModel.StkHareket" />
+          <AssociationSet Name="FK__StkHareke__depo___0A688BB1" Association="stokModel.FK__StkHareke__depo___0A688BB1">
+            <End Role="depo" EntitySet="depo" />
+            <End Role="StkHareket" EntitySet="StkHareket" />
+          </AssociationSet>
+          <AssociationSet Name="FK__StkHareke__produ__0880433F" Association="stokModel.FK__StkHareke__produ__0880433F">
+            <End Role="product" EntitySet="product" />
+            <End Role="StkHareket" EntitySet="StkHareket" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="depo">
+          <Key>
+            <PropertyRef Name="depo_id" />
+          </Key>
+          <Property Name="depo_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="depo_name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="StkDurum" Relationship="stokModel.FK__StkDurum__depo_i__503BEA1C" FromRole="depo" ToRole="StkDurum" />
+          <NavigationProperty Name="StkHareket" Relationship="stokModel.FK__StkHareke__depo___0A688BB1" FromRole="depo" ToRole="StkHareket" />
+        </EntityType>
+        <EntityType Name="product">
+          <Key>
+            <PropertyRef Name="product_id" />
+          </Key>
+          <Property Name="product_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="product_name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="product_date" Type="DateTime" Precision="0" />
+          <Property Name="product_detail" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="degistirme_tarihi" Type="DateTime" Precision="3" />
+          <Property Name="olcu_birimi" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="StkDurum" Relationship="stokModel.FK__StkDurum__produc__4F47C5E3" FromRole="product" ToRole="StkDurum" />
+          <NavigationProperty Name="StkHareket" Relationship="stokModel.FK__StkHareke__produ__0880433F" FromRole="product" ToRole="StkHareket" />
+        </EntityType>
+        <EntityType Name="StkDurum">
+          <Key>
+            <PropertyRef Name="durum_id" />
+          </Key>
+          <Property Name="durum_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="product_id" Type="Int32" />
+          <Property Name="depo_id" Type="Int32" />
+          <Property Name="stk_miktar" Type="Int32" />
+          <NavigationProperty Name="depo" Relationship="stokModel.FK__StkDurum__depo_i__503BEA1C" FromRole="StkDurum" ToRole="depo" />
+          <NavigationProperty Name="product" Relationship="stokModel.FK__StkDurum__produc__4F47C5E3" FromRole="StkDurum" ToRole="product" />
+        </EntityType>
+        <EntityType Name="users">
+          <Key>
+            <PropertyRef Name="users_id" />
+          </Key>
+          <Property Name="users_id" Type="Int32" Nullable="false" />
+          <Property Name="users_fname" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="users_lname" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="users_mail" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="users_type" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="u_tarih" Type="DateTime" Precision="3" />
+          <Property Name="password" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="degistirme_tarihi" Type="DateTime" Precision="3" />
+        </EntityType>
+        <Association Name="FK__StkDurum__depo_i__503BEA1C">
+          <End Type="stokModel.depo" Role="depo" Multiplicity="0..1" />
+          <End Type="stokModel.StkDurum" Role="StkDurum" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="depo">
+              <PropertyRef Name="depo_id" />
+            </Principal>
+            <Dependent Role="StkDurum">
+              <PropertyRef Name="depo_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__StkDurum__produc__4F47C5E3">
+          <End Type="stokModel.product" Role="product" Multiplicity="0..1" />
+          <End Type="stokModel.StkDurum" Role="StkDurum" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="product">
+              <PropertyRef Name="product_id" />
+            </Principal>
+            <Dependent Role="StkDurum">
+              <PropertyRef Name="product_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="StkHareket">
+          <Key>
+            <PropertyRef Name="hareket_id" />
+          </Key>
+          <Property Name="hareket_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="product_id" Type="Int32" />
+          <Property Name="depo_id" Type="Int32" />
+          <Property Name="stk_miktar" Type="Int32" />
+          <Property Name="stk_olcu" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="hareket_turu" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="hareket_tarih" Type="DateTime" Precision="3" />
+          <Property Name="user_name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="depo" Relationship="stokModel.FK__StkHareke__depo___0A688BB1" FromRole="StkHareket" ToRole="depo" />
+          <NavigationProperty Name="product" Relationship="stokModel.FK__StkHareke__produ__0880433F" FromRole="StkHareket" ToRole="product" />
+        </EntityType>
+        <Association Name="FK__StkHareke__depo___0A688BB1">
+          <End Type="stokModel.depo" Role="depo" Multiplicity="0..1" />
+          <End Type="stokModel.StkHareket" Role="StkHareket" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="depo">
+              <PropertyRef Name="depo_id" />
+            </Principal>
+            <Dependent Role="StkHareket">
+              <PropertyRef Name="depo_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__StkHareke__produ__0880433F">
+          <End Type="stokModel.product" Role="product" Multiplicity="0..1" />
+          <End Type="stokModel.StkHareket" Role="StkHareket" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="product">
+              <PropertyRef Name="product_id" />
+            </Principal>
+            <Dependent Role="StkHareket">
+              <PropertyRef Name="product_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="stokModelStoreContainer" CdmEntityContainer="stokEntities">
+          <EntitySetMapping Name="depo">
+            <EntityTypeMapping TypeName="stokModel.depo">
+              <MappingFragment StoreEntitySet="depo">
+                <ScalarProperty Name="depo_name" ColumnName="depo_name" />
+                <ScalarProperty Name="depo_id" ColumnName="depo_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="product">
+            <EntityTypeMapping TypeName="stokModel.product">
+              <MappingFragment StoreEntitySet="product">
+                <ScalarProperty Name="olcu_birimi" ColumnName="olcu_birimi" />
+                <ScalarProperty Name="degistirme_tarihi" ColumnName="degistirme_tarihi" />
+                <ScalarProperty Name="product_detail" ColumnName="product_detail" />
+                <ScalarProperty Name="product_date" ColumnName="product_date" />
+                <ScalarProperty Name="product_name" ColumnName="product_name" />
+                <ScalarProperty Name="product_id" ColumnName="product_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="StkDurum">
+            <EntityTypeMapping TypeName="stokModel.StkDurum">
+              <MappingFragment StoreEntitySet="StkDurum">
+                <ScalarProperty Name="stk_miktar" ColumnName="stk_miktar" />
+                <ScalarProperty Name="depo_id" ColumnName="depo_id" />
+                <ScalarProperty Name="product_id" ColumnName="product_id" />
+                <ScalarProperty Name="durum_id" ColumnName="durum_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="users">
+            <EntityTypeMapping TypeName="stokModel.users">
+              <MappingFragment StoreEntitySet="users">
+                <ScalarProperty Name="degistirme_tarihi" ColumnName="degistirme_tarihi" />
+                <ScalarProperty Name="password" ColumnName="password" />
+                <ScalarProperty Name="u_tarih" ColumnName="u_tarih" />
+                <ScalarProperty Name="users_type" ColumnName="users_type" />
+                <ScalarProperty Name="users_mail" ColumnName="users_mail" />
+                <ScalarProperty Name="users_lname" ColumnName="users_lname" />
+                <ScalarProperty Name="users_fname" ColumnName="users_fname" />
+                <ScalarProperty Name="users_id" ColumnName="users_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="StkHareket">
+            <EntityTypeMapping TypeName="stokModel.StkHareket">
+              <MappingFragment StoreEntitySet="StkHareket">
+                <ScalarProperty Name="user_name" ColumnName="user_name" />
+                <ScalarProperty Name="hareket_tarih" ColumnName="hareket_tarih" />
+                <ScalarProperty Name="hareket_turu" ColumnName="hareket_turu" />
+                <ScalarProperty Name="stk_olcu" ColumnName="stk_olcu" />
+                <ScalarProperty Name="stk_miktar" ColumnName="stk_miktar" />
+                <ScalarProperty Name="depo_id" ColumnName="depo_id" />
+                <ScalarProperty Name="product_id" ColumnName="product_id" />
+                <ScalarProperty Name="hareket_id" ColumnName="hareket_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
